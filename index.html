@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="Атлас чая: 10 сортов и чайных традиций шести стран. Исследуйте коллекцию и фильтруйте чаи по происхождению, типу и вкусу.">
+  <title>Атлас чая — сорта, страны, традиции</title>
+  <style>
+    :root {
+      --bg: #f7f8f5;
+      --paper: #ffffff;
+      --paper-alt: #eff1ed;
+      --ink: #1c2925;
+      --ink-soft: #56645d;
+      --line: #d9dfd8;
+      --accent: #264e43;
+      --accent-light: #e4ebe6;
+      --focus: #b18245;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --shadow: 0 18px 48px rgba(21, 42, 32, .08);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    button, input, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    ::selection { background: #d2dfd6; }
+    .container { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+    .topbar { border-bottom: 1px solid var(--line); background: rgba(247,248,245,.93); }
+    .topbar-inner { min-height: 79px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 780; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
+    .brand-mark { width: 34px; height: 34px; border: 1px solid var(--accent); display: grid; place-items: center; border-radius: 50%; color: var(--accent); }
+    .brand-mark svg { width: 19px; height: 19px; }
+    .topnav { display:flex; align-items:center; gap: 33px; color: var(--ink-soft); font-size: 13px; font-weight: 560; }
+    .topnav a:hover { color: var(--accent); }
+    .topnav .nav-cta { color: var(--accent); border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+    .hero { display: grid; grid-template-columns: 1.03fr .97fr; min-height: 570px; border-bottom: 1px solid var(--line); }
+    .hero-copy { padding: 86px 40px 76px 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+    .eyebrow, .micro { text-transform: uppercase; letter-spacing: .18em; font-size: 11px; font-weight: 700; color: var(--accent); }
+    .eyebrow { display:flex; align-items:center; gap: 12px; }
+    .eyebrow::before { content:""; height: 1px; width: 30px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 30px 0 23px; font-family: var(--serif); font-weight: 400; letter-spacing: -.055em; line-height: 1.035; font-size: clamp(57px, 6.2vw, 88px); }
+    h1 em { font-weight: 400; font-style: italic; color: var(--accent); }
+    .lead { color: var(--ink-soft); font-size: 16px; line-height: 1.8; max-width: 465px; margin-bottom: 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 27px; }
+    .primary-button { border: 1px solid var(--accent); background: var(--accent); color: white; font-weight: 650; display: inline-flex; justify-content: center; align-items: center; gap: 14px; min-height: 49px; padding: 0 24px; font-size: 13px; transition: .2s ease; }
+    .primary-button:hover { background:#173a30; transform: translateY(-1px); }
+    .primary-button svg { width: 16px; height: 16px; }
+    .hero-note { font-size: 12px; letter-spacing: .03em; color: var(--ink-soft); }
+    .hero-art { position: relative; min-height: 480px; overflow: hidden; background: #e9ede8; border-left: 1px solid var(--line); display:grid; place-items:center; }
+    .hero-art::before { content: ""; position:absolute; inset: 27px; border: 1px solid rgba(56,86,69,.24); pointer-events:none; z-index:1; }
+    .hero-art .art-index { position:absolute; z-index:2; left: 49px; top: 48px; font-size: 11px; text-transform: uppercase; letter-spacing:.21em; font-weight: 700; color: #4c6659; }
+    .hero-art .art-caption { position:absolute; z-index:2; right: 50px; bottom: 47px; text-align:right; color: #4c6659; font-size: 11px; letter-spacing:.06em; line-height: 1.8; }
+    .hero-illustration { width: min(95%, 545px); filter: drop-shadow(0 14px 14px rgba(35,48,37,.05)); }
+    .section { padding: 100px 0; }
+    .section-rule { display:flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 20px; margin-bottom: 50px; }
+    .section-rule span:last-child { color: #738079; font-size: 12px; letter-spacing:.08em; }
+    .feature { display: grid; grid-template-columns: 1fr 1.03fr; gap: 86px; align-items: center; }
+    .feature-visual { min-height: 388px; background: #e8edeb; position:relative; overflow: hidden; display:grid; place-items:center; }
+    .feature-visual::after { content:""; position:absolute; inset: 22px; border: 1px solid rgba(44,77,67,.24); }
+    .feature-visual .feature-number { position:absolute; top: 37px; left: 39px; font-family: var(--serif); font-size: 19px; color: #54695d; }
+    .feature-visual svg { width: 88%; height: 330px; }
+    .feature h2, .section-heading h2, .closing h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.035em; }
+    .feature h2 { font-size: clamp(35px, 4vw, 56px); margin: 16px 0 26px; line-height: 1.12; }
+    .feature p { font-size: 15px; line-height: 1.9; color: var(--ink-soft); max-width: 500px; }
+    .feature-facts { display:flex; flex-wrap:wrap; gap: 28px; margin-top: 38px; padding-top: 25px; border-top: 1px solid var(--line); }
+    .fact strong { display:block; font-family:var(--serif); font-size: 27px; font-weight:400; color:var(--ink); margin-bottom: 5px; }
+    .fact span { font-size:11px; color:var(--ink-soft); letter-spacing:.04em; }
+    .catalog { padding: 48px 0 100px; background: #f1f3ef; border-top: 1px solid var(--line); }
+    .section-heading { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:34px; }
+    .section-heading h2 { font-size: clamp(35px, 4vw, 52px); margin: 14px 0 0; }
+    .section-heading p { max-width:300px; line-height:1.65; color:var(--ink-soft); font-size:13px; margin:0 0 4px; }
+    .filter-panel { padding: 25px 27px; background: var(--paper); border: 1px solid var(--line); margin-bottom: 26px; }
+    .country-filters { display:flex; align-items:center; flex-wrap:wrap; gap:7px; padding-bottom: 20px; border-bottom:1px solid #e5e9e4; margin-bottom: 20px; }
+    .country-button { border: 1px solid transparent; background: transparent; border-radius: 2px; font-size: 12px; color: #647168; padding: 9px 13px; transition: .16s ease; }
+    .country-button:hover { background: #f0f3ef; color:var(--accent); }
+    .country-button[aria-pressed="true"] { color: white; background: var(--accent); border-color: var(--accent); }
+    .country-button .count { margin-left:6px; opacity:.65; }
+    .filters-bottom { display:grid; grid-template-columns: 1.45fr 1fr 1fr auto; gap: 13px; align-items: end; }
+    .field { display:flex; flex-direction:column; gap:8px; min-width:0; }
+    .field label { color: #718078; font-size:10px; text-transform:uppercase; font-weight:750; letter-spacing:.12em; }
+    .field input, .field select { min-width:0; width:100%; height:43px; border:1px solid #d7ded7; border-radius: 0; padding: 0 13px; color:var(--ink); background:#fbfcfa; outline:none; font-size:13px; }
+    .field select { cursor:pointer; }
+    .field input::placeholder { color:#929c96; }
+    .reset-button { height:43px; border:1px solid #d7ded7; background:white; color:var(--ink-soft); padding:0 17px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .reset-button:hover { border-color:var(--accent); color:var(--accent); }
+    .results-header { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:4px 0 18px; font-size: 12px; color: var(--ink-soft); }
+    .results-header strong { color:var(--ink); }
+    .quiet-link { border:0; background:transparent; color:var(--accent); font-size:12px; border-bottom:1px solid #95aa9d; padding: 0 0 3px; }
+    .tea-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .tea-card { min-width:0; display:flex; flex-direction:column; width:100%; text-align:left; padding:0; border:1px solid #d9dfd8; background:#fff; color:var(--ink); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .tea-card:hover { transform:translateY(-4px); border-color:#b2bfb5; box-shadow: var(--shadow); }
+    .card-visual { height:195px; background:var(--visual); position:relative; overflow:hidden; display:grid; place-items:center; border-bottom:1px solid rgba(60,70,60,.08); }
+    .card-visual::before { content:""; position:absolute; width:215px; height:215px; border:1px solid rgba(61,76,62,.12); border-radius:50%; }
+    .card-visual::after { content:""; position:absolute; width:160px; height:160px; border:1px solid rgba(61,76,62,.10); border-radius:50%; }
+    .card-small { z-index:2; position:absolute; top:17px; left:19px; color:rgba(31,56,43,.63); letter-spacing:.16em; font-size:9px; font-weight:750; }
+    .card-country-code { z-index:2; position:absolute; bottom:17px; right:20px; color:rgba(31,56,43,.55); letter-spacing:.12em; font-size:10px; font-weight:750; }
+    .cup { width:119px; height:119px; border: 11px solid rgba(255,255,251,.92); border-radius:50%; box-shadow: 0 11px 20px rgba(30,43,31,.13), 0 0 0 1px rgba(52,70,55,.08), inset 0 0 0 1px rgba(99,75,40,.14); display:grid; place-items:center; position:relative; z-index:1; transform: rotate(-11deg); background:var(--liquid); }
+    .cup::after { content:""; position:absolute; width: 27px; height:45px; border:9px solid #fffefa; border-left:none; right:-36px; top:25px; border-radius: 0 45px 45px 0; z-index:-1; box-shadow: 5px 6px 7px rgba(30,43,31,.05); }
+    .surface { height:100%; width:100%; border-radius:50%; background: radial-gradient(ellipse at 35% 25%, rgba(255,244,186,.30), transparent 42%), radial-gradient(ellipse at 65% 75%, rgba(41,26,14,.24), transparent 55%); }
+    .sprig { position:absolute; width:81px; height:113px; right:22px; top:21px; opacity:.45; transform:rotate(19deg); color:var(--leaf); }
+    .tea-card-body { padding:23px 24px 22px; flex:1; display:flex; flex-direction:column; }
+    .card-meta { text-transform: uppercase; font-size:10px; font-weight:750; letter-spacing:.14em; color:#668073; display:flex; gap:9px; align-items:center; }
+    .card-meta i { display:block; width:3px; height:3px; background:currentColor; border-radius:50%; }
+    .tea-card h3 { font-family:var(--serif); font-size:26px; font-weight:400; line-height:1.12; margin:12px 0 10px; letter-spacing:-.025em; }
+    .tea-card p { color:var(--ink-soft); line-height:1.7; font-size:12.5px; margin-bottom:25px; flex:1; }
+    .card-foot { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #e8ebe7; padding-top:17px; color:var(--ink-soft); font-size:11px; }
+    .card-foot .details { color:var(--accent); font-weight:700; display:flex; align-items:center; gap:7px; }
+    .card-foot .details span { font-size:17px; line-height:.75; }
+    .empty { display:none; text-align:center; padding: 75px 25px; background:white; border:1px solid var(--line); }
+    .empty.show { display:block; }
+    .empty h3 { font-family:var(--serif); font-size:29px; font-weight:400; margin-bottom:10px; }
+    .empty p { font-size:13px; color:var(--ink-soft); }
+    .closing { padding:82px 0 90px; }
+    .closing-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .closing h2 { font-size:clamp(34px,4vw,50px); line-height:1.16; max-width:470px; margin:12px 0 0; }
+    .closing p { font-size:15px; line-height:1.85; color:var(--ink-soft); margin-top:20px; }
+    footer { border-top:1px solid var(--line); }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; padding:28px 0; color:var(--ink-soft); font-size:11px; }
+    .footer-inner strong { font-weight:750; letter-spacing:.12em; color:var(--ink); }
+    dialog { border:1px solid var(--line); padding:0; width:min(690px,calc(100% - 32px)); max-height:calc(100dvh - 36px); color:var(--ink); background:var(--paper); box-shadow:0 24px 100px rgba(10,28,20,.22); }
+    dialog::backdrop { background:rgba(18,34,27,.62); backdrop-filter: blur(3px); }
+    .modal-top { display:flex; align-items:center; justify-content:space-between; gap:15px; padding:18px 26px; border-bottom:1px solid var(--line); }
+    .modal-top span { color:var(--accent); text-transform:uppercase; letter-spacing:.16em; font-size:10px; font-weight:750; }
+    .modal-close { background:transparent; border:1px solid var(--line); width:35px; height:35px; font-size:22px; line-height:1; color:var(--ink-soft); }
+    .modal-close:hover { background:var(--accent-light); }
+    .modal-body { padding:34px 39px 42px; overflow:auto; }
+    .modal-body h2 { font-size:clamp(36px,4vw,52px); font-weight:400; font-family:var(--serif); margin: 4px 0 12px; letter-spacing:-.03em; }
+    .modal-kicker { color:var(--ink-soft); font-size:12px; letter-spacing:.05em; }
+    .modal-description { font-size:15px; line-height:1.85; color:var(--ink-soft); margin:23px 0 26px; }
+    .brew-grid { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); margin-bottom:31px; }
+    .brew-grid > div { padding:19px; border-right:1px solid var(--line); }
+    .brew-grid > div:last-child { border:0; }
+    .brew-grid span { display:block; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; }
+    .brew-grid strong { font-family:var(--serif); font-size:23px; font-weight:400; }
+    .modal-body h3 { font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:26px 0 9px; }
+    .modal-body .body-note { color:var(--ink-soft); line-height:1.8; font-size:14px; margin:0; }
+    .modal-tip { margin-top:26px; border-left:2px solid #8da799; background:#f2f5f1; padding:18px 20px; color:var(--ink-soft); font-size:12px; line-height:1.7; }
+    @media (max-width: 1050px) {
+      .hero { min-height: 510px; }
+      .hero-copy { padding-right:28px; }
+      .feature { gap: 50px; }
+      .tea-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 720px) {
+      .container { width:min(100% - 36px,1180px); }
+      .topbar-inner { min-height:68px; }
+      .topnav { gap:17px; }
+      .topnav a:nth-child(2) { display:none; }
+      .topnav .nav-cta { display:none; }
+      .hero { grid-template-columns:1fr; }
+      .hero-copy { padding:64px 0 58px; }
+      h1 { font-size:clamp(52px,13vw,74px); }
+      .lead { font-size:14px; }
+      .hero-art { border-left:0; border-top:1px solid var(--line); min-height:350px; }
+      .hero-illustration { width:min(82%,420px); }
+      .hero-art .art-index { left:38px; top:35px; }
+      .hero-art .art-caption { right:40px; bottom:35px; }
+      .section { padding:70px 0; }
+      .section-rule { margin-bottom:32px; }
+      .feature { grid-template-columns:1fr; gap:36px; }
+      .feature-visual { min-height:300px; }
+      .feature-visual svg { height:300px; }
+      .feature h2 { margin-bottom:18px; }
+      .catalog { padding:47px 0 75px; }
+      .section-heading { align-items:start; flex-direction:column; gap:13px; }
+      .filter-panel { padding:16px; }
+      .filters-bottom { grid-template-columns:1fr 1fr; }
+      .field.search-field { grid-column:1/-1; }
+      .reset-button { grid-column:1/-1; }
+      .tea-grid { gap:13px; }
+      .card-visual { height:160px; }
+      .tea-card-body { padding:18px; }
+      .tea-card h3 { font-size:24px; }
+      .tea-card p { margin-bottom:18px; }
+      .closing { padding:65px 0; }
+      .closing-inner { grid-template-columns:1fr; gap:10px; }
+      .footer-inner { flex-direction:column; gap:9px; }
+      .modal-body { padding:26px 22px 30px; }
+    }
+    @media (max-width: 465px) {
+      .topnav a:not(:first-child) { display:none; }
+      .brand { font-size:12px; letter-spacing:.095em; }
+      .brand-mark { width:30px; height:30px; }
+      .hero-art { min-height:310px; }
+      .feature-visual { min-height:270px; }
+      .feature-visual svg { height:260px; }
+      .tea-grid { grid-template-columns:1fr; }
+      .card-visual { height:200px; }
+      .country-button { padding:8px 10px; }
+      .filters-bottom { grid-template-columns:1fr; }
+      .field.search-field { grid-column:auto; }
+      .reset-button { grid-column:auto; }
+      .brew-grid > div { padding:12px; }
+      .brew-grid strong { font-size:18px; }
+      .hero-actions { gap:14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top" aria-label="Атлас чая — на главную">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"><path d="M4 20C13 20 20 13 20 4 11 4 4 11 4 20Z"/><path d="M4 20 16 8"/><path d="M9 15 9 10M12 12h5"/></svg></span>
+        Атлас чая
+      </a>
+      <nav class="topnav" aria-label="Главная навигация">
+        <a href="#britain">Великобритания</a>
+        <a href="#collection">Коллекция</a>
+        <a class="nav-cta" href="#about">О проекте</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="container hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">Чайные традиции мира</div>
+        <h1 id="hero-title">Культура<br><em>в каждой</em><br>чашке.</h1>
+        <p class="lead">От британского чаепития до японской матча: небольшой путеводитель по сортам, вкусам и способам заваривания.</p>
+        <div class="hero-actions">
+          <a href="#collection" class="primary-button">Изучить коллекцию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+          <span class="hero-note">10 позиций · 6 стран</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Графическая иллюстрация чайника, чашки и чайной ветви" role="img">
+        <span class="art-index">THE TEA ATLAS / 01</span>
+        <svg class="hero-illustration" viewBox="0 0 560 550" aria-hidden="true">
+          <defs>
+            <linearGradient id="pot" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1e9df"/><stop offset=".54" stop-color="#bacbc0"/><stop offset="1" stop-color="#91aca0"/></linearGradient>
+            <linearGradient id="tea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a77b43"/><stop offset="1" stop-color="#654c2e"/></linearGradient>
+          </defs>
+          <circle cx="298" cy="261" r="184" fill="none" stroke="#c8d4cb" stroke-width="1"/>
+          <circle cx="298" cy="261" r="144" fill="none" stroke="#d7dfd7" stroke-width="1"/>
+          <path d="M108 449h351" stroke="#708b7a" opacity=".65" stroke-width="1.4"/>
+          <ellipse cx="313" cy="451" rx="139" ry="12" fill="#526f61" opacity=".10"/>
+          <path d="M181 304Q172 391 243 433Q313 470 370 429Q426 389 414 304Z" fill="url(#pot)" stroke="#648477" stroke-width="2.1"/>
+          <path d="M180 303Q184 264 207 245Q258 210 337 220Q402 231 414 303" fill="url(#pot)" stroke="#648477" stroke-width="2.1"/>
+          <ellipse cx="298" cy="304" rx="117" ry="24" fill="#c8d8ce" stroke="#648477" stroke-width="2"/>
+          <ellipse cx="298" cy="304" rx="101" ry="14" fill="#6f8b7c" opacity=".23"/>
+          <path d="M411 291Q470 266 479 306Q488 347 417 356" fill="none" stroke="#789688" stroke-width="22" stroke-linecap="round"/>
+          <path d="M411 291Q470 266 479 306Q488 347 417 356" fill="none" stroke="#dce5dc" stroke-width="14" stroke-linecap="round"/>
+          <path d="M177 297Q129 280 111 244Q146 227 192 259" fill="#b9d0c1" stroke="#648477" stroke-width="2"/>
+          <path d="M243 230Q241 198 267 192H331Q355 197 356 229" fill="#c3d5c8" stroke="#648477" stroke-width="2"/>
+          <ellipse cx="299" cy="190" rx="34" ry="8" fill="#a8bcae" stroke="#648477" stroke-width="2"/>
+          <path d="M287 184v-11q12-14 24 0v11" fill="none" stroke="#648477" stroke-width="2.2"/>
+          <path d="M205 341Q209 405 262 420" fill="none" stroke="white" stroke-opacity=".38" stroke-width="6" stroke-linecap="round"/>
+          <ellipse cx="139" cy="453" rx="75" ry="10" fill="#526f61" opacity=".10"/>
+          <path d="M87 397h102l-11 41q-9 19-38 19h-4q-30 0-39-19Z" fill="#f8f9f4" stroke="#708b7a" stroke-width="1.8"/>
+          <ellipse cx="138" cy="397" rx="51" ry="13" fill="#f8f9f4" stroke="#708b7a" stroke-width="1.8"/>
+          <ellipse cx="138" cy="398" rx="44" ry="8" fill="url(#tea)" opacity=".90"/>
+          <path d="M187 400q29-1 26 21q-2 24-34 19" fill="none" stroke="#f8f9f4" stroke-width="11"/>
+          <path d="M187 400q29-1 26 21q-2 24-34 19" fill="none" stroke="#708b7a" stroke-width="1.7"/>
+          <path d="M66 458h146" stroke="#708b7a" stroke-width="1.4"/>
+          <path d="M395 86Q440 135 452 204M429 119l-31-15M439 149l32-31M447 178l-31-10M448 193l28-22" stroke="#577b66" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M402 108Q371 109 371 79Q403 75 402 108ZM435 149Q462 139 475 116Q444 106 435 149ZM447 175Q416 181 410 160Q438 150 447 175ZM451 201Q474 191 488 169Q458 162 451 201ZM430 119Q406 121 400 103Q424 97 430 119Z" fill="#6e9278" opacity=".67"/>
+          <path d="M395 86Q440 135 452 204" stroke="#456d54" stroke-width="1" fill="none"/>
+          <path d="M106 182c-20-17-13-39 0-54M124 176c-17-18-10-35 1-48" fill="none" stroke="#9bb1a3" stroke-width="2" opacity=".6"/>
+        </svg>
+        <span class="art-caption">Чай как привычка,<br>традиция и язык культуры.</span>
+      </div>
+    </section>
+
+    <section class="section" id="britain" aria-labelledby="britain-title">
+      <div class="container">
+        <div class="section-rule"><span class="micro">01 / Страна в фокусе</span><span>Начнём с Великобритании</span></div>
+        <div class="feature">
+          <div class="feature-visual" aria-label="Стилизованная графика британского чайного сервиза" role="img">
+            <span class="feature-number">01 — UK</span>
+            <svg viewBox="0 0 510 350" aria-hidden="true">
+              <circle cx="253" cy="177" r="135" stroke="#c7d4cb" stroke-width="1.1" fill="none"/>
+              <circle cx="253" cy="177" r="107" stroke="#d3ded6" stroke-width="1.1" fill="none"/>
+              <path d="M87 273h341" stroke="#7e9587" stroke-width="1.4"/>
+              <ellipse cx="258" cy="272" rx="132" ry="11" fill="#43604d" opacity=".09"/>
+              <path d="M165 134h168l-17 96q-7 33-66 33t-67-33z" fill="#f7f8f4" stroke="#769185" stroke-width="2.3"/>
+              <ellipse cx="249" cy="134" rx="84" ry="26" fill="#f7f8f4" stroke="#769185" stroke-width="2.3"/>
+              <ellipse cx="249" cy="135" rx="70" ry="15" fill="#8f6941"/>
+              <ellipse cx="225" cy="130" rx="28" ry="5" fill="#d0a16a" opacity=".4"/>
+              <path d="M331 151q61-7 59 39-2 44-66 37" fill="none" stroke="#f7f8f4" stroke-width="19"/>
+              <path d="M331 151q61-7 59 39-2 44-66 37" fill="none" stroke="#769185" stroke-width="2.4"/>
+              <path d="M116 269h270" stroke="#769185" stroke-width="1.4"/>
+              <path d="M215 96c-13-22-9-38 3-55M251 94c-16-22-9-41 1-56M287 96c-10-19-6-32 4-47" stroke="#97b0a0" stroke-width="2" fill="none" stroke-linecap="round" opacity=".72"/>
+            </svg>
+          </div>
+          <div class="feature-copy">
+            <span class="micro">Великобритания / British tea culture</span>
+            <h2 id="britain-title">Больше, чем<br>чашка чая.</h2>
+            <p>В британской культуре чай стал частью повседневной жизни — от утренней чашки крепкого чёрного чая до традиции afternoon tea. Его подают дома, на работе и за встречами с друзьями.</p>
+            <p>Начнём знакомство с двух узнаваемых вариантов: насыщенного English Breakfast и ароматного Earl Grey.</p>
+            <div class="feature-facts">
+              <div class="fact"><strong>2</strong><span>вида в коллекции</span></div>
+              <div class="fact"><strong>XVII в.</strong><span>распространение чая в Англии</span></div>
+              <div class="fact"><strong>Tea time</strong><span>традиция чаепития</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog" id="collection" aria-labelledby="collection-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="micro">02 / Каталог</span><h2 id="collection-title">Исследуйте коллекцию</h2></div>
+          <p>Выберите страну, тип чая или интенсивность вкуса. Откройте карточку, чтобы узнать больше.</p>
+        </div>
+        <div class="filter-panel">
+          <div class="country-filters" role="group" aria-label="Фильтр по стране" id="country-filters"></div>
+          <div class="filters-bottom">
+            <div class="field search-field"><label for="search">Поиск по названию</label><input id="search" type="search" placeholder="Например, Эрл Грей или сенча" autocomplete="off"></div>
+            <div class="field"><label for="type">Тип чая</label><select id="type"><option value="all">Все типы</option><option value="black">Чёрный</option><option value="green">Зелёный</option><option value="post">Постферментированный</option><option value="powder">Порошковый</option></select></div>
+            <div class="field"><label for="strength">Интенсивность</label><select id="strength"><option value="all">Любая</option><option value="mild">Мягкая</option><option value="medium">Средняя</option><option value="strong">Насыщенная</option></select></div>
+            <button type="button" class="reset-button" id="reset">Сбросить</button>
+          </div>
+        </div>
+        <div class="results-header"><span id="result-count" role="status" aria-live="polite">Показано 10 из 10</span><button type="button" class="quiet-link" id="random">Случайный чай ↗</button></div>
+        <div class="tea-grid" id="tea-grid"></div>
+        <div class="empty" id="empty"><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтры или поисковый запрос.</p><button type="button" class="primary-button" id="empty-reset">Очистить фильтры</button></div>
+      </div>
+    </section>
+
+    <section class="closing" id="about">
+      <div class="container closing-inner">
+        <div><span class="micro">03 / О проекте</span><h2>Одна привычка.<br>Разные культуры.</h2></div>
+        <div><p>В одних странах чай становится основой долгого разговора, в других — частью строгого ритуала или повседневным напитком. Этот небольшой атлас объединяет разные традиции, не сводя их к одному способу приготовления.</p><p>Температура и время заваривания в карточках даны как ориентиры. Они могут отличаться в зависимости от сорта, посуды и личных предпочтений.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><strong>АТЛАС ЧАЯ</strong><span>Образовательный проект · Чайные традиции мира</span><a href="#top">Вернуться наверх ↑</a></div></footer>
+
+  <dialog id="tea-dialog" aria-labelledby="dialog-title">
+    <div class="modal-top"><span id="dialog-label">Атлас чая / карточка</span><button type="button" id="modal-close" class="modal-close" aria-label="Закрыть карточку">×</button></div>
+    <div class="modal-body" id="dialog-content"></div>
+  </dialog>
+
+  <script>
+    const teas = [
+      { id:'english-breakfast', name:'English Breakfast', country:'uk', countryName:'Великобритания', code:'UK', type:'black', typeName:'Чёрный чай', strength:'strong', strengthName:'Насыщенный', temp:'95–100 °C', time:'3–5 мин', liquid:'#8c5b34', visual:'#e9e5dc', leaf:'#5d7560', short:'Крепкий купаж чёрных чаёв для бодрого начала дня.', flavor:'Плотный, солодовый, с лёгкой терпкостью.', story:'English Breakfast — популярное название крепких купажей чёрного чая. В составе могут встречаться чаи из Ассама, Цейлона и других регионов. Это не один сорт с фиксированной рецептурой, а узнаваемый стиль купажа.', serving:'Часто подаётся с молоком; сахар — по желанию.', tip:'Для более крепкой чашки увеличьте количество чая, а не время заваривания: так вкус будет менее горьким.', search:'инглиш брекфаст английский завтрак' },
+      { id:'earl-grey', name:'Earl Grey', country:'uk', countryName:'Великобритания', code:'UK', type:'black', typeName:'Чёрный ароматизированный', strength:'medium', strengthName:'Средний', temp:'90–95 °C', time:'3–4 мин', liquid:'#8d6244', visual:'#e2e8e7', leaf:'#6e8d82', short:'Чёрный чай с узнаваемым цитрусовым ароматом бергамота.', flavor:'Цитрусовый, освежающий, с мягкой чайной терпкостью.', story:'Earl Grey обычно готовят на основе чёрного чая, ароматизированного бергамотом. Он стал одной из самых известных британских чайных композиций, хотя конкретные смеси могут сильно различаться.', serving:'Хорош сам по себе; иногда его подают с молоком или лимоном.', tip:'Не передерживайте заварку: тонкий аромат бергамота лучше раскрывается без излишней горечи.', search:'эрл грей эрл грэй бергамот' },
+      { id:'longjing', name:'Лунцзин', country:'china', countryName:'Китай', code:'CN', type:'green', typeName:'Зелёный чай', strength:'mild', strengthName:'Мягкий', temp:'80–85 °C', time:'2–3 мин', liquid:'#a29c4f', visual:'#e8eadd', leaf:'#728761', short:'Зелёный чай с плоскими листьями и деликатным ореховым оттенком.', flavor:'Свежий, слегка ореховый, иногда с оттенком каштана.', story:'Лунцзин (Longjing, «Колодец дракона») — знаменитый китайский зелёный чай, связанный с районом Ханчжоу. Листья обрабатывают нагреванием на сковородах, что помогает сохранить их характерный вкус.', serving:'Часто заваривается без добавок, чтобы почувствовать оттенки самого листа.', tip:'Не используйте крутой кипяток: более мягкая вода по температуре сохраняет тонкий вкус.', search:'лунцзин лун цзин longjing колодец дракона' },
+      { id:'puer', name:'Шу пуэр', country:'china', countryName:'Китай', code:'CN', type:'post', typeName:'Постферментированный', strength:'strong', strengthName:'Насыщенный', temp:'95–100 °C', time:'2–4 мин', liquid:'#65442e', visual:'#e5e0da', leaf:'#77715f', short:'Глубокий тёмный чай с землистыми и древесными нотами.', flavor:'Мягкий землистый, древесный, с плотным послевкусием.', story:'Шу пуэр — постферментированный чай, традиционно связанный с провинцией Юньнань. Его характер формируется при ускоренной микробной ферментации; во вкусе часто ощущаются древесные и тёплые ноты.', serving:'Обычно без молока и сахара; хорошо подходит для нескольких проливов.', tip:'Для заваривания проливами используйте короткие настаивания вместо одного длительного.', search:'шу пуэр пуер puer yunnan юньнань' },
+      { id:'sencha', name:'Сенча', country:'japan', countryName:'Япония', code:'JP', type:'green', typeName:'Зелёный чай', strength:'medium', strengthName:'Средний', temp:'70–80 °C', time:'1–2 мин', liquid:'#8a9652', visual:'#e0e8dd', leaf:'#6c916e', short:'Повседневный японский зелёный чай с яркой свежестью.', flavor:'Травянистый, овощной, с лёгкой сладостью и умами.', story:'Сенча — один из самых распространённых видов зелёного чая в Японии. Листья обычно обрабатывают паром, затем скручивают и сушат; это формирует характерный свежий вкус.', serving:'Подаётся без добавок, часто в небольшой чашке.', tip:'Сенча чувствительна к температуре: слишком горячая вода усиливает горечь.', search:'сенча сэнтя sencha' },
+      { id:'matcha', name:'Матча', country:'japan', countryName:'Япония', code:'JP', type:'powder', typeName:'Порошковый зелёный', strength:'strong', strengthName:'Насыщенный', temp:'70–80 °C', time:'20–30 сек', liquid:'#678342', visual:'#e1e9db', leaf:'#668e61', short:'Тонко размолотый зелёный чай, который взбивают с водой.', flavor:'Насыщенный растительный, с выраженным умами.', story:'Матча — зелёный чай в виде тонкого порошка, получаемый из специально выращенных и обработанных листьев. В традиционном приготовлении порошок размешивают с горячей водой бамбуковым венчиком.', serving:'Употребляется как чайный напиток, а также используется в десертах и латте.', tip:'В отличие от листового чая, матчу не процеживают: порошок остаётся в напитке. Указанное время — ориентир для взбивания.', search:'матча маття matcha' },
+      { id:'assam', name:'Ассам', country:'india', countryName:'Индия', code:'IN', type:'black', typeName:'Чёрный чай', strength:'strong', strengthName:'Насыщенный', temp:'95–100 °C', time:'3–5 мин', liquid:'#854c30', visual:'#e9e3da', leaf:'#847661', short:'Плотный индийский чай с характерным солодовым вкусом.', flavor:'Солодовый, густой, терпкий.', story:'Ассам — крупный чайный регион на северо-востоке Индии, известный насыщенными чёрными чаями. Их нередко используют в крепких утренних смесях и для приготовления чая с молоком.', serving:'Хорошо сочетается с молоком и пряностями.', tip:'Если планируете добавлять молоко, можно сделать настой чуть крепче.', search:'ассам assam' },
+      { id:'darjeeling', name:'Дарджилинг', country:'india', countryName:'Индия', code:'IN', type:'black', typeName:'Чёрный чай', strength:'mild', strengthName:'Мягкий', temp:'85–95 °C', time:'2–3 мин', liquid:'#a07b4e', visual:'#e9e7de', leaf:'#829177', short:'Тонкий чай из предгорий Гималаев с цветочными оттенками.', flavor:'Цветочный, лёгкий, иногда с мускательными нотами.', story:'Дарджилинг выращивают в горном регионе Индии. Вкус зависит от времени сбора и обработки: весенние чаи бывают особенно свежими, а летние известны более выраженными фруктовыми оттенками.', serving:'Часто пьют без молока, чтобы сохранить сложность аромата.', tip:'Для нежного Дарджилинга начните с более низкой температуры и короткого настаивания.', search:'дарджилинг даржилинг darjeeling' },
+      { id:'atay', name:'Атай с мятой', country:'morocco', countryName:'Марокко', code:'MA', type:'green', typeName:'Зелёный чай с мятой', strength:'medium', strengthName:'Средний', temp:'85–95 °C', time:'3–5 мин', liquid:'#aa914e', visual:'#e6e9df', leaf:'#5d9675', short:'Марокканская традиция зелёного чая с мятой и сахаром.', flavor:'Освежающий мятный, сладкий, травянистый.', story:'Марокканский атай часто готовят на основе зелёного чая с добавлением свежей мяты и сахара. Подача в небольших стаканах — важная часть гостеприимства; варианты рецептов различаются от семьи к семье.', serving:'Традиционно подают сладким в небольших стаканах.', tip:'Количество мяты и сахара легко менять: в домашней версии ориентируйтесь на собственный вкус.', search:'атай аттай мята марокканский чай atay mint' },
+      { id:'cay', name:'Турецкий чай', country:'turkey', countryName:'Турция', code:'TR', type:'black', typeName:'Чёрный чай', strength:'strong', strengthName:'Насыщенный', temp:'95–100 °C', time:'10–15 мин', liquid:'#954b2f', visual:'#eee4dc', leaf:'#8a7d60', short:'Крепкий чёрный чай из двухъярусного чайника — çaydanlık.', flavor:'Яркий, терпкий, с выраженной чайной глубиной.', story:'Турецкий çay традиционно готовят в двухъярусном чайнике: в верхней части настаивается крепкая заварка, которую затем разбавляют горячей водой из нижней. Напиток часто подают в стеклянных стаканах в форме тюльпана.', serving:'Обычно подают без молока; сахар — по вкусу.', tip:'Время указано для традиционного приготовления концентрата в двухъярусном чайнике, а не для обычной чашки.', search:'чай чайданлык турецкий çay cay turkey' }
+    ];
+
+    const countries = [
+      ['all','Все страны'], ['uk','Великобритания'], ['china','Китай'], ['japan','Япония'], ['india','Индия'], ['morocco','Марокко'], ['turkey','Турция']
+    ];
+    const state = { country:'all', type:'all', strength:'all', search:'' };
+    const grid = document.getElementById('tea-grid');
+    const pills = document.getElementById('country-filters');
+    const dialog = document.getElementById('tea-dialog');
+    const detail = document.getElementById('dialog-content');
+    const escapeHTML = str => String(str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function renderPills(){
+      pills.innerHTML = countries.map(([id,label])=>{
+        const count = id === 'all' ? teas.length : teas.filter(t=>t.country===id).length;
+        return `<button type="button" class="country-button" data-country="${id}" aria-pressed="${state.country===id}">${label}<span class="count">${count}</span></button>`;
+      }).join('');
+    }
+    function leafSvg(){return `<svg class="sprig" viewBox="0 0 100 140" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M28 132C31 93 63 56 76 9"/><path d="M48 100C10 100 11 71 11 71C41 69 48 85 48 100Z" fill="currentColor" fill-opacity=".24"/><path d="M62 72C30 62 38 35 38 35C67 43 69 61 62 72Z" fill="currentColor" fill-opacity=".25"/><path d="M69 44C91 42 95 20 95 20C70 18 63 35 69 44Z" fill="currentColor" fill-opacity=".28"/><path d="M38 112C59 112 73 94 73 94C47 88 37 100 38 112Z" fill="currentColor" fill-opacity=".2"/></svg>`;}
+    function illustration(t,i){
+      return `<div class="card-visual" style="--liquid:${t.liquid};--visual:${t.visual};--leaf:${t.leaf}"><span class="card-small">TEA / ${String(i+1).padStart(2,'0')}</span>${leafSvg()}<div class="cup" aria-hidden="true"><div class="surface"></div></div><span class="card-country-code">${t.code}</span></div>`;
+    }
+    const normalize = s => s.toLocaleLowerCase('ru-RU').replace(/ё/g,'е').trim();
+    function filtered(){
+      const q = normalize(state.search);
+      return teas.filter(t=>(state.country==='all'||t.country===state.country)
+        &&(state.type==='all'||t.type===state.type)
+        &&(state.strength==='all'||t.strength===state.strength)
+        &&(!q||normalize(`${t.name} ${t.countryName} ${t.typeName} ${t.flavor} ${t.search}`).includes(q)));
+    }
+    function render(){
+      const results = filtered();
+      const html = results.map(t=>{
+        const idx=teas.indexOf(t);
+        return `<button type="button" class="tea-card" data-tea="${t.id}" aria-label="Подробнее: ${escapeHTML(t.name)}">${illustration(t,idx)}<div class="tea-card-body"><div class="card-meta"><span>${escapeHTML(t.countryName)}</span><i></i><span>${escapeHTML(t.typeName)}</span></div><h3>${escapeHTML(t.name)}</h3><p>${escapeHTML(t.short)}</p><div class="card-foot"><span>${escapeHTML(t.strengthName)} вкус</span><span class="details">Подробнее <span aria-hidden="true">↗</span></span></div></div></button>`;
+      }).join('');
+      grid.innerHTML=html;
+      grid.hidden = results.length === 0;
+      document.getElementById('empty').classList.toggle('show',results.length===0);
+      document.getElementById('result-count').innerHTML=`Показано <strong>${results.length}</strong> из ${teas.length}`;
+      document.getElementById('random').disabled = results.length===0;
+      document.getElementById('random').style.visibility = results.length===0 ? 'hidden' : 'visible';
+      renderPills();
+    }
+    function showTea(id){
+      const t=teas.find(item=>item.id===id); if(!t) return;
+      document.getElementById('dialog-label').textContent=`${t.countryName} / ${t.typeName}`;
+      detail.innerHTML=`<p class="modal-kicker">${escapeHTML(t.countryName)} · ${escapeHTML(t.typeName)}</p><h2 id="dialog-title">${escapeHTML(t.name)}</h2><p class="modal-description">${escapeHTML(t.short)}</p><div class="brew-grid"><div><span>Температура</span><strong>${escapeHTML(t.temp)}</strong></div><div><span>${t.id==='matcha'?'Взбивание':'Время'}</span><strong>${escapeHTML(t.time)}</strong></div><div><span>Вкус</span><strong>${escapeHTML(t.strengthName)}</strong></div></div><h3>История и традиция</h3><p class="body-note">${escapeHTML(t.story)}</p><h3>Вкусовой профиль</h3><p class="body-note">${escapeHTML(t.flavor)}</p><h3>Как принято подавать</h3><p class="body-note">${escapeHTML(t.serving)}</p><div class="modal-tip"><strong>Совет по приготовлению.</strong> ${escapeHTML(t.tip)}</div>`;
+      dialog.showModal();
+    }
+    pills.addEventListener('click',e=>{
+      const b=e.target.closest('[data-country]'); if(!b)return;
+      state.country=b.dataset.country; render();
+    });
+    grid.addEventListener('click',e=>{
+      const card=e.target.closest('[data-tea]'); if(card)showTea(card.dataset.tea);
+    });
+    document.getElementById('type').addEventListener('change',e=>{state.type=e.target.value;render();});
+    document.getElementById('strength').addEventListener('change',e=>{state.strength=e.target.value;render();});
+    document.getElementById('search').addEventListener('input',e=>{state.search=e.target.value;render();});
+    function reset(){
+      state.country='all';state.type='all';state.strength='all';state.search='';
+      document.getElementById('type').value='all';
+      document.getElementById('strength').value='all';
+      document.getElementById('search').value='';
+      render();
+    }
+    document.getElementById('reset').addEventListener('click',reset);
+    document.getElementById('empty-reset').addEventListener('click',reset);
+    document.getElementById('random').addEventListener('click',()=>{
+      const f=filtered(); if(f.length)showTea(f[Math.floor(Math.random()*f.length)].id);
+    });
+    document.getElementById('modal-close').addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+    render();
+  </script>
+</body>
+</html>
